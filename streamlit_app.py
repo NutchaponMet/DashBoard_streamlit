@@ -5,7 +5,7 @@ import plotly.express as px
 
 
 # Load data from csv
-df = pd.read_csv('/dataset/RetailDataTransactions.csv')
+df = pd.read_csv(r'')
 
 def rfm_analysis(DataFrame):
     currentDate = datetime.now()
