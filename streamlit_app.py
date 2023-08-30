@@ -5,7 +5,7 @@ import plotly.express as px
 
 
 # Load data from csv
-df = pd.read_csv(r'')
+df = pd.read_csv(r'https://github.com/NutchaponMet/DashBoard_streamlit/blob/main/datatset/RetailDataTransactions.csv')
 
 def rfm_analysis(DataFrame):
     currentDate = datetime.now()
