@@ -5,8 +5,13 @@ import plotly.express as px
 
 
 # Load data from csv
-df = pd.read_csv('RetailDataTransactions.csv')
+@st.cache_data(ttl=3600)
+def load_data():
+    df = pd.read_csv('RetailDataTransactions.csv')
+    return df
+df = load_data(url)
 
+@st.cache_data(ttl=3600)
 def rfm_analysis(DataFrame):
     currentDate = datetime.now()
     df['trans_date'] = pd.to_datetime(df['trans_date'])
@@ -17,14 +22,16 @@ def rfm_analysis(DataFrame):
             .rename(columns={'trans_date':'recency','customer_id':'frequency','tran_amount':'monetary'})
     return rfm
 
-
+@st.cache_data(ttl=3600)
 def display_data(DataFrame):
     show =  DataFrame.head(5)
     return show
 
-def distribution_plot(DataFrame):
-    rfm_data = rfm_analysis(df)
-    pass
+@st.cache_data(ttl=3600)
+def scatter_plot(DataFrame):
+    fig = px.scatter(x=rfm_data['frequency'],y=rfm_data['monetary'])
+    return fig
+
 
 
 
@@ -63,8 +70,7 @@ if __name__=='__main__':
         select_analysis = st.selectbox('Analysis',('Distribution', 'Kmean clustering'))
         if select_analysis == 'Distribution':
             rfm_data = rfm_analysis(df)
-            fig = px.scatter(x=rfm_data['frequency'],y=rfm_data['monetary'])
             st.subheader('Scatter Plot')
-            st.plotly_chart(fig)
+            st.plotly_chart(scatter_plot(rfm_data))
         if select_analysis =='Kmean clustering':
             pass
