@@ -9,7 +9,7 @@ import plotly.express as px
 def load_data():
     df = pd.read_csv('RetailDataTransactions.csv')
     return df
-df = load_data(url)
+df = load_data()
 
 @st.cache_data(ttl=3600)
 def rfm_analysis(DataFrame):
